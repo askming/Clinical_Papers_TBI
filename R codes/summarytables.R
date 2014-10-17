@@ -49,6 +49,8 @@ c(mean(vital_signs$SjvO2, na.rm=T), sd(vital_signs$SjvO2, na.rm=T))
 
 c(mean(vital_signs$SaO2, na.rm=T), sd(vital_signs$SaO2, na.rm=T))
 
+c(mean(vital_signs$PCO2, na.rm=T), sd(vital_signs$PCO2, na.rm=T))
+
 c(mean(vital_signs$PbtO2, na.rm=T), sd(vital_signs$PbtO2, na.rm=T))
 
 
@@ -64,7 +66,7 @@ round(c(mean(Age), sd(Age)), 1)
 ### 2. sex
 table(demographic$Gender)
 # female   male  other 
-#   188   1050      1 
+#     59    379      0 
 
 
 ### 3. race
@@ -125,42 +127,6 @@ table(demographic$Mon6GOS)
 # 303  49 258 170 167   8 173 
 
 
-
-
-#################################################
-#################################################
-cbf<-read.csv("cbf_cmro2.csv",header=T)
-# > dim(cbf)
-# [1] 2589   59
-
-# > names(cbf)
-# [1] "IDNo"                   "CBFNo"                  "HAI"                   
-# [4] "TD.CBF"                 "ICP"                    "MAP"                   
-# [7] "Hgb"                    "PaO2"                   "SaO2"                  
-# [10] "CaO2"                   "PaCO2"                  "CaCO2"                 
-# [13] "PaH"                    "PjvO2"                  "SjvO2"                 
-# [16] "CjvO2"                  "PjvCO2"                 "CjvCO2"                
-# [19] "CjvH"                   "CBF10"                  "CBF15"                 
-# [22] "CBFinf"                 "CBFcorr"                "CBFlow.limit"          
-# [25] "CBFhigh.limit"          "CVR"                    "Alact"                 
-# [28] "JVlact"                 "Agluc"                  "JVgluc"                
-# [31] "IITS"                   "PVI"                    "CSF.pH"                
-# [34] "CSF.lactate"            "CSF.glucose"            "CSF.hematocrit"        
-# [37] "PWP"                    "CO"                     "VO2"                   
-# [40] "SVR"                    "PVR"                    "Comments"              
-# [43] "CMRO2"                  "AvCBF"                  "Left.mcaFV"            
-# [46] "Left.acaFV"             "Left.pcaFV"             "Left.icaFV"            
-# [49] "Left.Flow.Volume"       "Left.Hemispheric.CBF"   "Right.mcaFV"           
-# [52] "Right.acaFV"            "Right.pcaFV"            "Right.icaFV"           
-# [55] "Right.Flow.Volume"      "Right.Hemispheric.CBF"  "PbtO2"                 
-# [58] "rCBF.at.TCD.probe.site" "rCBF.at.PbtO2.MD.site" 
-
-### table the time points of measurement for each patient in vital_signs data with icp==na removed
-no_measures<-tapply(vital_signs$HAI[!is.na(vital_signs$ICP)],vital_signs$IDNo[!is.na(vital_signs$ICP)],length)
-
-### those patients have vital signs also have domographic info
-indicator<-unique(vital_signs$IDNo)%in%unique(demographic$IDNo)
-subvitalID<-unique(vital_signs$IDNo)[indicator]
 
 
 
