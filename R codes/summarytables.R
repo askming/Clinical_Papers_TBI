@@ -4,27 +4,60 @@
 rm(list=ls())
 setwd("/Users/askming/Dropbox/RA Works/Self/6. Real Data/Claudia TBI Data")
 
-demographic<-read.csv("Demographic.csv",header=T)
-# > dim(demographic)
-# [1] 1239   33
 
-# > names(demographic)
-# [1] "IDNo"               "AdmNo"              "HINo"               "Gender"            
-# [5] "Age"                "Race.text"          "InitialHospital"    "PH.Hypoxia"        
-# [9] "PH.hypotension"     "Mechanism"          "ERGCSsum"           "ERGCSmotor"        
-# [13] "ERLpupilsize"       "ERLpupilreactivity" "ERRpupilsize"       "ERRpupilreactivity"
-# [17] "AIS"                "CT.Code"            "ICULOS"             "ICUDCHAI"          
-# [21] "HospLOS"            "DischargeGCS"       "DischGOS"           "DischargeDRS"      
-# [25] "Month1GCS"          "Mon1GOS"            "Month1DRS"          "Month3GCS"         
-# [29] "Mon3GOS"            "Month3DRS"          "Month6GCS"          "Mon6GOS"           
-# [33] "Month6DRS" 
+#################################################
+#################################################
+vital_signs<-read.csv("vital_signs.csv",header=T)
+# > dim(vital_signs)
+# [1] 65533    38
+
+# > names(vital_signs)
+# [1] "IDNo"               "HAI"                "GCS.eye"            "GCS.motor"         
+# [5] "GCS.verbal"         "GCS.sum"            "L.pupil.size"       "L.pupil.reactivity"
+# [9] "R.pupil.size"       "R.pupil.reactivity" "ICP"                "SBP"               
+# [13] "DBP"                "MAP"                "CPP"                "SaO2"              
+# [17] "ETCO2"              "SjvO2"              "SjvO2.artifact"     "PbtO2"             
+# [21] "Pbto2.artifact"     "CBF"                "JVP"                "PWP"               
+# [25] "CO"                 "CVP"                "Temperature"        "Brain.temperature" 
+# [29] "Jugular.temperture" "PO2"                "PCO2"               "Hemoglobin"        
+# [33] "Sodium"             "Glucose"            "Osmolality"         "PT"                
+# [37] "PTT"                "Platelet.count"  
+
+sub_vital = subset(vital_signs, !is.na(ICP))
+ID1 = unique(sub_vital$IDNo)
+
+
+demographic = read.csv("Demographic.csv",header=T)
+demographic = subset(demographic, Age >0 & Gender != 'other' & IDNo %in% ID1)
+ID2 = unique(demographic$IDNo)
+
+sub_vital = subset(sub_vital, IDNo %in% ID2)
+length(unique(sub_vital$IDNo))
+
+## 438 subjects in analysis
+
+#################################################
+#################################################
+
+c(mean(vital_signs$ICP, na.rm=T), sd(vital_signs$ICP, na.rm=T))
+
+c(mean(vital_signs$MAP, na.rm=T), sd(vital_signs$MAP, na.rm=T))
+
+c(mean(vital_signs$CPP, na.rm=T), sd(vital_signs$CPP, na.rm=T))
+
+c(mean(vital_signs$SjvO2, na.rm=T), sd(vital_signs$SjvO2, na.rm=T))
+
+c(mean(vital_signs$SaO2, na.rm=T), sd(vital_signs$SaO2, na.rm=T))
+
+c(mean(vital_signs$PbtO2, na.rm=T), sd(vital_signs$PbtO2, na.rm=T))
+
+
+#################################################
+#################################################
+
 
 #### 1. for Age
-sum(is.na(demographic$Age))
-# [1] 0
-sum(demographic$Age < 0)
-# [1] 1
-Age = subset(demographic, Age > 0)$Age
+Age = subset(demographic)$Age
 round(c(mean(Age), sd(Age)), 1)
 # [1] 34.3 14.4
 
@@ -43,6 +76,7 @@ table(demographic$Race.text)
 
 ### 4. Mechanism
 levels(demographic$Mechanism)
+table(demographic$Mechanism)
                                     # assault            automobile               bicycle 
                    # 16                   215                   548                    10 
                   # bus             explosion             fall/jump         gunshot wound 
@@ -91,35 +125,6 @@ table(demographic$Mon6GOS)
 # 303  49 258 170 167   8 173 
 
 
-#################################################
-#################################################
-vital_signs<-read.csv("vital_signs.csv",header=T)
-# > dim(vital_signs)
-# [1] 65533    38
-
-# > names(vital_signs)
-# [1] "IDNo"               "HAI"                "GCS.eye"            "GCS.motor"         
-# [5] "GCS.verbal"         "GCS.sum"            "L.pupil.size"       "L.pupil.reactivity"
-# [9] "R.pupil.size"       "R.pupil.reactivity" "ICP"                "SBP"               
-# [13] "DBP"                "MAP"                "CPP"                "SaO2"              
-# [17] "ETCO2"              "SjvO2"              "SjvO2.artifact"     "PbtO2"             
-# [21] "Pbto2.artifact"     "CBF"                "JVP"                "PWP"               
-# [25] "CO"                 "CVP"                "Temperature"        "Brain.temperature" 
-# [29] "Jugular.temperture" "PO2"                "PCO2"               "Hemoglobin"        
-# [33] "Sodium"             "Glucose"            "Osmolality"         "PT"                
-# [37] "PTT"                "Platelet.count"  
-
-c(mean(vital_signs$ICP, na.rm=T), sd(vital_signs$ICP, na.rm=T))
-
-c(mean(vital_signs$MAP, na.rm=T), sd(vital_signs$MAP, na.rm=T))
-
-c(mean(vital_signs$CPP, na.rm=T), sd(vital_signs$CPP, na.rm=T))
-
-c(mean(vital_signs$SjvO2, na.rm=T), sd(vital_signs$SjvO2, na.rm=T))
-
-c(mean(vital_signs$SaO2, na.rm=T), sd(vital_signs$SaO2, na.rm=T))
-
-c(mean(vital_signs$PbtO2, na.rm=T), sd(vital_signs$PbtO2, na.rm=T))
 
 
 #################################################
