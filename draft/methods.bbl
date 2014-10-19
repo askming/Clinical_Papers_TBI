@@ -1,0 +1,18 @@
+\begin{thebibliography}{1}
+
+\bibitem{bates2012lme4}
+Douglas Bates, Martin Maechler, and Ben Bolker.
+\newblock lme4: Linear mixed-effects models using s4 classes.
+\newblock 2012.
+
+\bibitem{henderson2000joint}
+Robin Henderson, Peter Diggle, and Angela Dobson.
+\newblock Joint modelling of longitudinal measurements and event time data.
+\newblock {\em Biostatistics}, 1(4):465--480, 2000.
+
+\bibitem{team2012r}
+R~Core Team et~al.
+\newblock R: A language and environment for statistical computing.
+\newblock 2012.
+
+\end{thebibliography}

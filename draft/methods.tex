@@ -31,18 +31,481 @@
 \date{}
 \maketitle
 
+\tableofcontents
+\newpage
 
 
-\subsubsection*{1. Multiple logistic regression of GOS}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Multiple logistic regression of GOS} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+In this part, the outcome variable is the Glasgow outcome scale (GOS). GOS is an ordinal variable that ranges from 1 to 5 and we used three different schemes to re-categorize the original GOS variable into a new dichotomous variable. Moreover, since the GOS was measured at month 1, 3 and 6 (after discharge ?), we conducted multiple logistical regression analyses on each of the newly created GOS variables for each of these three time points. (Thus, there are total 3 $\times$ 3 = 9 models)
+
+In each of the multiple logistical regression models, we included demographic and injury severity characteristics such as Age, Gender, AIS, Eye-reactivity, CT score as well as the average of those physiological information during the hospital stay such as ICP, MAP, GCS, etc. as the independent variables. Due to missing values in observations, there are total 206, 200 and 190 effective number of patients for each of the three time points respectively. The exponential value of the resulting regression coefficient is the odds ratio of the two outcomes, e.g. death vs others, when the predictor increases one unit (if it is continuous variable) or when it is compared to the reference group (if categorical).
+
+For coding scheme one, we can see that at all three time points, Age, mean of ICP, MAP and GCS sum are all significantly related with the outcome at 0.05 significance level. While Age and mean of ICP are positively correlated with the outcome, the relationship between mean of MAP and GCS sum and the outcome are negative. In terms of interpretation, under our first coding scheme, i.e. death coded as 1 and others coded as 0, taking Age in the first model as an example, for a patient at the first month of discharge from the hospital the odds for him/her to be dead is 1.07 (i.e. $\exp$(0.0701)) times of the odds for another who is one year younger. Similar interpretation applies to other predictors if they are continuous; if the predictor is categorical, the comparison is between the specific category of interest and the reference level. Note that one additional significant variable in Month 3 is AIS (\emph{p-value} = 0.0453).
+
+Compared to coding scheme one, in scheme two both eyes active category in eye reactivity variable becomes significantly related with outcome. The sign of the coefficient for ``bothactvie'' is negative means that patients with both eyes reactive are more likely to stay alive, i.e. less likely to be dead, compared to those whose eyes are bot not reactive, which is the reference group.
+
+In coding scheme three, there is only one covariate, average GCS sum, that is significantly related with the outcome at month 1; while in month 3 and 6, Age, bothactivce and mean GCS sum are significantly related with the outcome.
 
 
-\subsubsection*{2. LMM for ICP}
+%%%%%%%%%%%%%%%
+\subsection{Scheme One: death (1) vs others (2--5)}
+
+\begin{itemize}
+\item \textsc{Month 1}
+% latex table generated in R 3.1.1 by xtable 1.7-3 package
+% Fri Sep  5 14:53:06 2014
+\begin{table}[H]
+\centering
+\caption{Multiple logistical regression output for death vs others at Month 1 (206 observations after removing missing)}
+\begin{tabular}{lrrrr}
+  \hline
+ & Estimate & Std. Error & z value & Pr($>$$|$z$|$) \\ 
+  \hline
+(Intercept) & 0.5897 & 4.2682 & 0.14 & 0.8901 \\ 
+  Age & 0.0701 & 0.0161 & 4.35 & {\bf 0.0000} \\ 
+  Gendermale & 0.3185 & 0.7043 & 0.45 & 0.6511 \\ 
+  AIS & 0.0462 & 0.0362 & 1.28 & 0.2013 \\ 
+  oneactive & 0.1550 & 0.9569 & 0.16 & 0.8713 \\ 
+  bothactive & -0.6683 & 0.4619 & -1.45 & 0.1480 \\ 
+  CTD34 & 0.9806 & 0.9855 & 1.00 & 0.3197 \\ 
+  CTM12 & 0.9984 & 0.9093 & 1.10 & 0.2722 \\ 
+  mean\_ICP & 0.1131 & 0.0396 & 2.86 & {\bf 0.0042} \\ 
+  mean\_MAP & -0.0705 & 0.0250 & -2.82 & {\bf 0.0048} \\ 
+  mean\_GCS.sum & -0.6174 & 0.1956 & -3.16 & {\bf 0.0016} \\ 
+  mean\_SjvO2 & 0.0067 & 0.0441 & 0.15 & 0.8800 \\ 
+  mean\_CBF & 0.0033 & 0.0209 & 0.16 & 0.8761 \\ 
+  mean\_CMRO2 & 0.1700 & 0.4642 & 0.37 & 0.7142 \\ 
+   \hline
+\end{tabular}
+\end{table}
+
+
+\item \textsc{Month 3}
+% latex table generated in R 3.1.1 by xtable 1.7-3 package
+% Fri Sep  5 14:53:06 2014
+\begin{table}[H]
+\centering
+\caption{Multiple logistical regression output for death vs others at Month 1 (200 observations after removing missing)}
+\begin{tabular}{lrrrr}
+  \hline
+ & Estimate & Std. Error & z value & Pr($>$$|$z$|$) \\ 
+  \hline
+(Intercept) & -1.4268 & 4.4129 & -0.32 & 0.7464 \\ 
+  Age & 0.0784 & 0.0170 & 4.63 & {\bf 0.0000} \\ 
+  Gendermale & 0.2789 & 0.7036 & 0.40 & 0.6918 \\ 
+  AIS & 0.0807 & 0.0403 & 2.00 & {\bf 0.0453} \\ 
+  oneactive & 0.6333 & 0.9977 & 0.63 & 0.5256 \\ 
+  bothactive & -0.5409 & 0.4743 & -1.14 & 0.2541 \\ 
+  CTD34 & 0.7809 & 0.9767 & 0.80 & 0.4240 \\ 
+  CTM12 & 0.8386 & 0.8869 & 0.95 & 0.3444 \\ 
+  mean\_ICP & 0.1318 & 0.0437 & 3.02 & {\bf 0.0025} \\ 
+  mean\_MAP & -0.0780 & 0.0259 & -3.01 & {\bf 0.0026} \\ 
+  mean\_GCS.sum & -0.6276 & 0.2022 & -3.10 & {\bf 0.0019} \\ 
+  mean\_SjvO2 & 0.0294 & 0.0454 & 0.65 & 0.5162 \\ 
+  mean\_CBF & -0.0009 & 0.0204 & -0.04 & 0.9665 \\ 
+  mean\_CMRO2 & 0.1520 & 0.4656 & 0.33 & 0.7440 \\ 
+   \hline
+\end{tabular}
+\end{table}
+
+
+\item \textsc{Month 6}
+% latex table generated in R 3.1.1 by xtable 1.7-3 package
+% Fri Sep  5 14:53:06 2014
+\begin{table}[H]
+\centering
+\caption{Multiple logistical regression output for death vs others at Month 1 (190 observations after removing missing)}
+\begin{tabular}{lrrrr}
+  \hline
+ & Estimate & Std. Error & z value & Pr($>$$|$z$|$) \\ 
+  \hline
+(Intercept) & -1.1902 & 4.6210 & -0.26 & 0.7967 \\ 
+  Age & 0.0807 & 0.0176 & 4.58 & {\bf 0.0000} \\ 
+  Gendermale & 0.3301 & 0.7073 & 0.47 & 0.6408 \\ 
+  AIS & 0.0779 & 0.0436 & 1.78 & 0.0743 \\ 
+  oneactive & 0.1926 & 1.0083 & 0.19 & 0.8485 \\ 
+  bothactive & -0.8033 & 0.4901 & -1.64 & 0.1012 \\ 
+  CTD34 & 0.4829 & 0.9949 & 0.49 & 0.6274 \\ 
+  CTM12 & 1.1309 & 0.9055 & 1.25 & 0.2117 \\ 
+  mean\_ICP & 0.1013 & 0.0430 & 2.36 & {\bf 0.0185} \\ 
+  mean\_MAP & -0.0928 & 0.0279 & -3.32 & {\bf 0.0009} \\ 
+  mean\_GCS.sum & -0.8080 & 0.2127 & -3.80 & {\bf 0.0001} \\ 
+  mean\_SjvO2 & 0.0708 & 0.0473 & 1.50 & 0.1344 \\ 
+  mean\_CBF & -0.0103 & 0.0211 & -0.49 & 0.6233 \\ 
+  mean\_CMRO2 & 0.3396 & 0.4749 & 0.71 & 0.4746 \\ 
+   \hline
+\end{tabular}
+\end{table}
+
+\end{itemize}
 
 
 
 
-\subsubsection*{3. Joint modelling: ICP and ICULOS}
+%%%%%%%%%%%%%%%
+\newpage
+\subsection{Scheme Two: bad (1, 2) vs good (3, 4, 5)}
 
+\begin{itemize}
+\item \textsc{Month 1}
+% latex table generated in R 3.1.1 by xtable 1.7-3 package
+% Fri Sep  5 14:48:34 2014
+\begin{table}[H]
+\caption{Multiple logistical regression output for bad vs good at Month 1 (206 observations after removing missing)}
+\centering
+\begin{tabular}{lrrrr}
+  \hline
+ & Estimate & Std. Error & z value & Pr($>$$|$z$|$) \\ 
+  \hline
+(Intercept) & -0.1172 & 3.8370 & -0.03 & 0.9756 \\ 
+  Age & 0.0533 & 0.0141 & 3.78 & {\bf 0.0002} \\ 
+  Gendermale & 0.2514 & 0.6196 & 0.41 & 0.6849 \\ 
+  AIS & 0.0487 & 0.0385 & 1.27 & 0.2058 \\ 
+  oneactive & 0.4157 & 1.0378 & 0.40 & 0.6888 \\ 
+  bothactive & -1.0725 & 0.4037 & -2.66 & {\bf 0.0079} \\ 
+  CTD34 & 0.2872 & 0.6701 & 0.43 & 0.6682 \\ 
+  CTM12 & 0.2603 & 0.5533 & 0.47 & 0.6381 \\ 
+  mean\_ICP & 0.0226 & 0.0318 & 0.71 & 0.4765 \\ 
+  mean\_MAP & -0.0301 & 0.0222 & -1.35 & 0.1755 \\ 
+  mean\_GCS.sum & -0.8119 & 0.1736 & -4.68 & {\bf 0.0000} \\ 
+  mean\_SjvO2 & 0.0471 & 0.0380 & 1.24 & 0.2155 \\ 
+  mean\_CBF & -0.0031 & 0.0158 & -0.20 & 0.8435 \\ 
+  mean\_CMRO2 & 0.1407 & 0.3577 & 0.39 & 0.6940 \\ 
+   \hline
+\end{tabular}
+\end{table}
+
+
+
+
+\item \textsc{Month 3}
+% latex table generated in R 3.1.1 by xtable 1.7-3 package
+% Fri Sep  5 14:49:07 2014
+\begin{table}[H]
+\caption{200 observations after removing missing}
+\centering
+\begin{tabular}{lrrrr}
+  \hline
+ & Estimate & Std. Error & z value & Pr($>$$|$z$|$) \\ 
+  \hline
+(Intercept) & 0.9893 & 4.1193 & 0.24 & 0.8102 \\ 
+  Age & 0.0557 & 0.0149 & 3.73 & {\bf 0.0002} \\ 
+  Gendermale & 0.3626 & 0.6529 & 0.56 & 0.5787 \\ 
+  AIS & 0.0671 & 0.0399 & 1.68 & 0.0922 \\ 
+  oneactive & -0.2126 & 0.9409 & -0.23 & 0.8213 \\ 
+  bothactive & -1.0801 & 0.4321 & -2.50 & {\bf 0.0124} \\ 
+  CTD34 & 0.9005 & 0.8087 & 1.11 & 0.2655 \\ 
+  CTM12 & 1.1277 & 0.7197 & 1.57 & 0.1172 \\ 
+  mean\_ICP & 0.0572 & 0.0350 & 1.64 & 0.1018 \\ 
+  mean\_MAP & -0.0660 & 0.0244 & -2.71 & {\bf 0.0068} \\ 
+  mean\_GCS.sum & -0.7006 & 0.1802 & -3.89 & {\bf 0.0001} \\ 
+  mean\_SjvO2 & 0.0414 & 0.0416 & 1.00 & 0.3195 \\ 
+  mean\_CBF & -0.0131 & 0.0186 & -0.71 & 0.4795 \\ 
+  mean\_CMRO2 & 0.1751 & 0.4120 & 0.42 & 0.6709 \\ 
+   \hline
+\end{tabular}
+\end{table}
+
+\item \textsc{Month 6}
+% latex table generated in R 3.1.1 by xtable 1.7-3 package
+% Fri Sep  5 14:49:37 2014
+\begin{table}[H]
+\caption{190 observations after removing missing}
+\centering
+\begin{tabular}{lrrrr}
+  \hline
+ & Estimate & Std. Error & z value & Pr($>$$|$z$|$) \\ 
+  \hline
+(Intercept) & 1.3544 & 4.1292 & 0.33 & 0.7429 \\ 
+  Age & 0.0557 & 0.0151 & 3.69 & {\bf 0.0002} \\ 
+  Gendermale & 0.3185 & 0.6531 & 0.49 & 0.6258 \\ 
+  AIS & 0.0595 & 0.0396 & 1.50 & 0.1327 \\ 
+  oneactive & -0.1911 & 0.9242 & -0.21 & 0.8362 \\ 
+  bothactive & -1.0087 & 0.4427 & -2.28 & {\bf 0.0227} \\ 
+  CTD34 & 0.6205 & 0.8089 & 0.77 & 0.4430 \\ 
+  CTM12 & 0.9891 & 0.7166 & 1.38 & 0.1675 \\ 
+  mean\_ICP & 0.0460 & 0.0339 & 1.36 & 0.1746 \\ 
+  mean\_MAP & -0.0648 & 0.0246 & -2.64 & {\bf 0.0084} \\ 
+  mean\_GCS.sum & -0.7435 & 0.1851 & -4.02 & {\bf 0.0001} \\ 
+  mean\_SjvO2 & 0.0437 & 0.0419 & 1.04 & 0.2964 \\ 
+  mean\_CBF & -0.0087 & 0.0185 & -0.47 & 0.6369 \\ 
+  mean\_CMRO2 & 0.1160 & 0.4168 & 0.28 & 0.7808 \\ 
+   \hline
+\end{tabular}
+\end{table}
+
+\end{itemize}
+
+
+
+%%%%%%%%%%%%%%%
+\newpage
+\subsection{Scheme Three: (1, 2, 3) vs (4, 5)}
+
+
+\begin{itemize}
+\item \textsc{Month 1}
+% latex table generated in R 3.1.1 by xtable 1.7-3 package
+% Fri Sep  5 14:55:56 2014
+\begin{table}[H]
+\centering
+\begin{tabular}{lrrrr}
+  \hline
+ & Estimate & Std. Error & z value & Pr($>$$|$z$|$) \\ 
+  \hline
+(Intercept) & -3.3226 & 3.8661 & -0.86 & 0.3901 \\ 
+  Age & 0.0284 & 0.0158 & 1.80 & 0.0718 \\ 
+  Gendermale & 0.8935 & 0.6260 & 1.43 & 0.1535 \\ 
+  AIS & 0.0929 & 0.0516 & 1.80 & 0.0720 \\ 
+  oneactive & 14.4828 & 1214.0781 & 0.01 & 0.9905 \\ 
+  bothactive & -0.4344 & 0.4716 & -0.92 & 0.3569 \\ 
+  CTD34 & -0.9217 & 0.6915 & -1.33 & 0.1826 \\ 
+  CTM12 & 0.1459 & 0.5246 & 0.28 & 0.7810 \\ 
+  mean\_ICP & 0.0055 & 0.0352 & 0.16 & 0.8763 \\ 
+  mean\_MAP & 0.0192 & 0.0260 & 0.74 & 0.4607 \\ 
+  mean\_GCS.sum & -0.4921 & 0.1497 & -3.29 & {\bf 0.0010} \\ 
+  mean\_SjvO2 & 0.0251 & 0.0400 & 0.63 & 0.5300 \\ 
+  mean\_CBF & 0.0210 & 0.0206 & 1.02 & 0.3094 \\ 
+  mean\_CMRO2 & -0.4431 & 0.3945 & -1.12 & 0.2614 \\ 
+   \hline
+\end{tabular}
+\end{table}
+
+
+\item \textsc{Month 3}
+% latex table generated in R 3.1.1 by xtable 1.7-3 package
+% Fri Sep  5 14:55:56 2014
+\begin{table}[H]
+\centering
+\begin{tabular}{lrrrr}
+  \hline
+ & Estimate & Std. Error & z value & Pr($>$$|$z$|$) \\ 
+  \hline
+(Intercept) & -5.3350 & 3.6813 & -1.45 & 0.1473 \\ 
+  Age & 0.0630 & 0.0158 & 3.98 & {\bf 0.0001} \\ 
+  Gendermale & 0.6805 & 0.6292 & 1.08 & 0.2794 \\ 
+  AIS & 0.0320 & 0.0395 & 0.81 & 0.4169 \\ 
+  oneactive & 0.3247 & 1.3271 & 0.24 & 0.8067 \\ 
+  bothactive & -1.1163 & 0.4222 & -2.64 & {\bf 0.0082} \\ 
+  CTD34 & -0.0855 & 0.6273 & -0.14 & 0.8915 \\ 
+  CTM12 & 0.7150 & 0.4809 & 1.49 & 0.1371 \\ 
+  mean\_ICP & 0.0433 & 0.0337 & 1.28 & 0.1990 \\ 
+  mean\_MAP & 0.0186 & 0.0231 & 0.80 & 0.4211 \\ 
+  mean\_GCS.sum & -0.5554 & 0.1458 & -3.81 & {\bf 0.0001} \\ 
+  mean\_SjvO2 & 0.0522 & 0.0369 & 1.42 & 0.1567 \\ 
+  mean\_CBF & -0.0000 & 0.0156 & -0.00 & 0.9980 \\ 
+  mean\_CMRO2 & -0.2186 & 0.3412 & -0.64 & 0.5217 \\ 
+   \hline
+\end{tabular}
+\end{table}
+
+
+\item \textsc{Month 6}
+% latex table generated in R 3.1.1 by xtable 1.7-3 package
+% Fri Sep  5 14:55:56 2014
+\begin{table}[H]
+\centering
+\begin{tabular}{lrrrr}
+  \hline
+ & Estimate & Std. Error & z value & Pr($>$$|$z$|$) \\ 
+  \hline
+(Intercept) & -3.2957 & 3.7984 & -0.87 & 0.3856 \\ 
+  Age & 0.0704 & 0.0167 & 4.21 & {\bf 0.0000} \\ 
+  Gendermale & 1.0002 & 0.6567 & 1.52 & 0.1277 \\ 
+  AIS & 0.0393 & 0.0419 & 0.94 & 0.3481 \\ 
+  oneactive & 0.8078 & 1.3653 & 0.59 & 0.5541 \\ 
+  bothactive & -0.9163 & 0.4415 & -2.08 & {\bf 0.0380} \\ 
+  CTD34 & -0.5512 & 0.6740 & -0.82 & 0.4134 \\ 
+  CTM12 & 0.4083 & 0.5150 & 0.79 & 0.4278 \\ 
+  mean\_ICP & 0.0500 & 0.0359 & 1.39 & 0.1639 \\ 
+  mean\_MAP & -0.0075 & 0.0235 & -0.32 & 0.7493 \\ 
+  mean\_GCS.sum & -0.6598 & 0.1594 & -4.14 & {\bf 0.0000} \\ 
+  mean\_SjvO2 & 0.0510 & 0.0379 & 1.35 & 0.1784 \\ 
+  mean\_CBF & 0.0013 & 0.0160 & 0.08 & 0.9336 \\ 
+  mean\_CMRO2 & -0.2691 & 0.3568 & -0.75 & 0.4508 \\ 
+   \hline
+\end{tabular}
+\end{table}
+\end{itemize}
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section{LMM for ICP}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+In this part the outcome of interest is intracranial pressure (ICP), which is an important physiological indicator that we closely monitor to keep an eye on patients' brain health condition. ICP is monitored over time for each patients and repeated measurements were recored. The ICP values within one patient are supposed to be more similar than those measurements from different patients. To account for the correlation of the ICP measurements with the same patient, we use linear mixed model (LMM) in modeling ICP with regard to other covariates. In LMM we introduce a hypothetic unobserved hidden variable, i.e. random effect, observations from the same patient share the same random effect while observations for different patients have different values for random effect. We fit the LMMs using \verb'R' \cite{team2012r} function \verb'lmer{lme4}'\cite{bates2012lme4}.
+
+In the first model, results shown in Table \ref{tab: lmm1}, Age, CT code, GCS.sum and MAP are significantly related with ICP value. Take MAP as an example, the coefficient of MAP means ICP value will increase by 0.06 unit corresponding to one unit increase in MAP. In the second model we add an additional variable PbtO2 into the first model, due to the missing values the effective number of observations decreases dramatically and there is only one variable, SjvO2, that is significantly related ICP. Results can be found in Table \ref{tab: lmm2}. Similarly, based on model one we investigated other potential covariates to ICP, i.e. CBF and CMRO2 in model 3 and ratio of Lactate and Pyruvate respectively and the results are listed in Table \ref{tab: lmm3} and Table \ref{tab: lmm4}. 
+
+% latex table generated in R 3.1.1 by xtable 1.7-3 package
+% Wed Sep 10 16:47:27 2014
+\begin{table}[H]
+\centering
+\caption{Number of obs: 2050, groups: IDNo, 258}
+\label{tab: lmm1}
+\begin{tabular}{rrrrrr}
+  \hline
+ & Estimate & Std. Error & df & t value & Pr($>$$|$t$|$) \\ 
+  \hline
+(Intercept) & 8.51 & 2.74 & 946.47 & 3.10 & {\bf 0.00} \\ 
+  HAI & 0.01 & 0.00 & 2026.66 & 1.68 & 0.09 \\ 
+  Age & -0.14 & 0.03 & 222.91 & -4.45 & {\bf 0.00} \\ 
+  Gendermale & 1.53 & 1.43 & 222.38 & 1.08 & 0.28 \\ 
+  onereactive & 0.64 & 2.13 & 214.17 & 0.30 & 0.76 \\ 
+  bothreactive & -1.06 & 0.99 & 212.80 & -1.08 & 0.28 \\ 
+  CTD34 & 3.22 & 1.45 & 215.46 & 2.22 & {\bf 0.03} \\ 
+  CTM12 & 4.28 & 1.14 & 226.80 & 3.76 & {\bf 0.00} \\ 
+  GCS.sum & -0.44 & 0.10 & 2037.69 & -4.51 & {\bf 0.00} \\ 
+  MAP & 0.06 & 0.02 & 2032.60 & 4.05 & {\bf 0.00} \\ 
+  SjvO2 & 0.02 & 0.02 & 1982.45 & 1.26 & 0.21 \\ 
+  PCO2 & 0.04 & 0.04 & 2037.43 & 0.99 & 0.32 \\ 
+   \hline
+\end{tabular}
+\end{table}
+
+
+
+% latex table generated in R 3.1.1 by xtable 1.7-3 package
+% Wed Sep 10 16:53:35 2014
+\begin{table}[H]
+\centering
+\caption{With PbtO2 added into Model one; Number of obs: 109, groups: IDNo, 16}
+\label{tab: lmm2}
+\begin{tabular}{rrrrrr}
+  \hline
+ & Estimate & Std. Error & df & t value & Pr($>$$|$t$|$) \\ 
+  \hline
+(Intercept) & 6.93 & 15.34 & 12.52 & 0.45 & 0.66 \\ 
+  HAI & 0.00 & 0.02 & 88.68 & 0.15 & 0.88 \\ 
+  Age & 0.27 & 0.38 & 9.11 & 0.71 & 0.50 \\ 
+  Gendermale & 7.87 & 11.52 & 9.24 & 0.68 & 0.51 \\ 
+  bothreactives & -6.86 & 7.83 & 9.58 & -0.88 & 0.40 \\ 
+  CTD34 & 0.52 & 11.98 & 9.24 & 0.04 & 0.97 \\ 
+  CTM12 & 2.17 & 10.78 & 9.08 & 0.20 & 0.84 \\ 
+  GCS.sum & -0.15 & 0.31 & 87.60 & -0.50 & 0.62 \\ 
+  MAP & -0.02 & 0.06 & 87.10 & -0.30 & 0.76 \\ 
+  SjvO2 & 0.14 & 0.07 & 88.90 & 2.05 & {\bf 0.04} \\ 
+  PCO2 & 0.08 & 0.12 & 90.28 & 0.69 & 0.49 \\ 
+  PbtO2 & 0.01 & 0.04 & 89.98 & 0.18 & 0.86 \\ 
+   \hline
+\end{tabular}
+\end{table}
+
+
+% latex table generated in R 3.1.1 by xtable 1.7-3 package
+% Wed Sep 10 16:55:36 2014
+\begin{table}[H]
+\centering
+\caption{Number of obs: 56, groups: IDNo, 42}
+\label{tab: lmm3}
+\begin{tabular}{rrrrrr}
+  \hline
+ & Estimate & Std. Error & df & t value & Pr($>$$|$t$|$) \\ 
+  \hline
+(Intercept) & 3.62 & 16.98 & 41.97 & 0.21 & 0.83 \\ 
+  HAI & 0.06 & 0.03 & 38.73 & 1.82 & 0.08 \\ 
+  Age & -0.15 & 0.08 & 30.57 & -1.80 & 0.08 \\ 
+  Gendermale & 4.31 & 5.10 & 34.57 & 0.84 & 0.40 \\ 
+  onereactive & -8.79 & 6.77 & 35.40 & -1.30 & 0.20 \\ 
+  bothreactive & -4.48 & 2.96 & 29.28 & -1.51 & 0.14 \\ 
+  CTD34 & -0.50 & 5.50 & 28.73 & -0.09 & 0.93 \\ 
+  CTM12 & 1.20 & 4.84 & 29.18 & 0.25 & 0.81 \\ 
+  GCS.sum & -0.97 & 0.65 & 37.87 & -1.51 & 0.14 \\ 
+  MAP & 0.08 & 0.11 & 36.96 & 0.74 & 0.46 \\ 
+  SjvO2 & -0.04 & 0.18 & 42.00 & -0.23 & 0.82 \\ 
+  PCO2 & 0.37 & 0.16 & 38.92 & 2.31 & {\bf 0.03} \\ 
+  CBF & 0.01 & 0.09 & 37.85 & 0.10 & 0.92 \\ 
+  CMRO2 & -1.39 & 1.93 & 41.00 & -0.72 & 0.48 \\ 
+   \hline
+\end{tabular}
+\end{table}
+
+
+
+% latex table generated in R 3.1.1 by xtable 1.7-3 package
+% Wed Sep 10 16:57:49 2014
+\begin{table}[H]
+\centering
+\caption{Number of obs: 27, groups: IDNo, 14}
+\label{tab: lmm4}
+\begin{tabular}{rrrrrr}
+  \hline
+ & Estimate & Std. Error & df & t value & Pr($>$$|$t$|$) \\ 
+  \hline
+(Intercept) & -8.01 & 19.96 & 13.60 & -0.40 & 0.69 \\ 
+  HAI & -0.06 & 0.03 & 14.74 & -2.09 & {\bf 0.05} \\ 
+  Age & -0.16 & 0.16 & 4.77 & -0.98 & 0.37 \\ 
+  Gendermale & 6.82 & 9.33 & 6.31 & 0.73 & 0.49 \\ 
+  bothreactive & 4.04 & 5.59 & 5.64 & 0.72 & 0.50 \\ 
+  CTD34 & 8.07 & 7.29 & 5.54 & 1.11 & 0.31 \\ 
+  CTM12 & 1.49 & 6.59 & 6.95 & 0.23 & 0.83 \\ 
+  GCS.sum & 1.63 & 0.84 & 13.70 & 1.95 & {\bf 0.07} \\ 
+  MAP & 0.10 & 0.09 & 10.21 & 1.08 & 0.31 \\ 
+  SjvO2 & 0.30 & 0.14 & 11.37 & 2.14 & {\bf 0.05} \\ 
+  PCO2 & -0.55 & 0.44 & 14.98 & -1.24 & 0.23 \\ 
+  L.P.Ratio & 0.01 & 0.05 & 10.99 & 0.17 & 0.87 \\ 
+   \hline
+\end{tabular}
+\end{table}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section{Joint modelling: ICP and ICULOS}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Here we are interested in the relationship between ICULOS (outcome, ICU length of stay) and ICP values (adjusted by other factors). Taking ICULOS as the outcome, we're really interested in the relationship between time to ICU discharge and other factors, including ICP. Meanwhile, since ICP measurements are repeatedly measured overtime, i.e. time dependent, we can not simply take the mean of ICP and use it as the covariate because during the ICU stay patients with higher ICP may die earlier than others that results in a short ICULOS. So we can consider those patients as censored cases to adjust the effect of higher ICP on ICULOS. Thus, we prefer to use joint modeling method \cite{henderson2000joint} in which we model ICULOS as a time to event process (ICU discharge is the event) and model ICP using longitudinal modeling method simultaneously. Specifically, 
+
+\begin{equation}\label{eqn:joint}
+\left\{
+\begin{array}{l}
+h_i(t| {\bf w}_i, m_i(t))=h_0(t)\exp[\boldsymbol{\gamma}^{\top}{\bf w}_i+\alpha m_i(t)]\\
+y_i(t) = m_i(t) + \varepsilon_i(t) = {\bf x}_i^{\top}(t)\boldsymbol{\beta} + {\bf z}_i^{\top}(t){\bf b} + \varepsilon_i(t),\hspace{1em} \varepsilon_i(t)\sim N(0, \sigma^2)
+\end{array}
+\right.
+\end{equation}
+
+\noindent where $t$ is the time to event (ICU discharge), i.e. ICULOS; $m_i(t)$ is ICP measurements for subject $i$ at time $t$; ${\bf w}_i$ are time independent variables for subject $i$; ${\bf x}_i$ are fixed effect covariates and ${\bf z}_i$ are random effects covariates, they can be either time dependent or independent. 
+
+Results are shown in Table \ref{tab: jm}. In \emph{Event Process} (left part of the table), the value corresponds to ``Assoct'' is the estimate for parameter $\alpha$ in Equation (\ref{eqn:joint}). Negative value means that increased ICP values leads to longer time to event (smaller hazard rate), i.e. larger value of ICU discharge. However, the association is not statistically significant when we jointly model with the \emph{Longitudinal Process}, where the ICP is the outcome variable as shown at the right side of the tables.
+
+% latex table generated in R 3.1.1 by xtable 1.7-3 package
+% Fri Sep  5 20:13:53 2014
+\begin{table}[H]
+\centering
+\begin{tabular}{lrrrlrrr}
+  \hline
+  & \multicolumn{3}{c}{Event Process} & & \multicolumn{3}{c}{Longitudinal Process}\\
+  & Value & Std.Err & $p$-value &   & Value & Std.Err & $p$-value \\ 
+  \hline
+Age & -0.01 & 0.01 & $0.2155$ & (Intercept) & 19.46 & 2.52 & ${\bf <0.0001}$ \\ 
+  Gendermale & -0.03 & 0.31 & $0.9176$ & Age & -0.16 & 0.03 & ${\bf <0.0001}$ \\ 
+  onereactive & -0.53 & 0.45 & $0.2478$ & Gendermale & 3.40 & 1.52 & ${\bf 0.0251}$ \\ 
+  both reactive & 0.01 & 0.23 & $0.9742$ & onereactive & 2.74 & 1.44 & $0.0563$ \\ 
+  CTD34 & -0.63 & 0.33 & $0.0565$ & bothreactivce & -0.81 & 0.86 & $0.3429$ \\ 
+  CTM12 & -0.88 & 0.26 & ${\bf 0.0006}$ & CTD34 & 4.48 & 1.24 & ${\bf 0.0003}$ \\ 
+  Assoct & -0.02 & 0.02 & $0.3854$ & CTM12 & 4.11 & 1.06 & ${\bf 0.0001}$ \\ 
+  $\log(\xi_1)$ & -7.37 & 0.73 &  & HAI & 0.00 & 0.00 & $0.2137$ \\ 
+  $\log(\xi_2)$ & -5.61 & 0.63 &  & GCS.sum & -0.33 & 0.12 & ${\bf 0.0047}$ \\ 
+  $\log(\xi_3)$ & -5.46 & 0.64 &  & PCO2 & 0.03 & 0.05 & $0.4988$ \\ 
+  $\log(\xi_4)$ & -4.80 & 0.65 &  & $\log(\sigma)$ & 2.05 & 0.02 &  \\ 
+  $\log(\xi_5)$ & -5.02 & 0.67 &  &  &  &  &  \\ 
+  $\log(\xi_6)$ & -4.71 & 0.68 &  & $D_{11}$ & 38.11 & 11.29 &  \\ 
+  $\log(\xi_7)$ & -4.13 & 0.72 &  &  &  &  &  \\ 
+   \hline
+\end{tabular}
+\caption{Parameter estimates, standard errors and $p$-values under the joint modeling analysis. $D_{ij}$ denote the $ij$-element of the covariance matrix for the random effects.} 
+\label{tab: jm}
+\end{table}
+
+\bibliographystyle{plain}%%%%%%%%%%%%%%%%%%%%
+\addcontentsline{toc}{section}{References}
+\bibliography{results}
 
 
 
