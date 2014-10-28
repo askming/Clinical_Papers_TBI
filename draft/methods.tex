@@ -38,9 +38,9 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Multiple logistic regression of GOS} 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-In this part, the outcome variable is the Glasgow outcome scale (GOS). GOS is an ordinal variable that ranges from 1 to 5 and we used three different schemes to re-categorize the original GOS variable into a new dichotomous variable. Moreover, since the GOS was measured at month 1, 3 and 6 (after discharge ?), we conducted multiple logistical regression analyses on each of the newly created GOS variables for each of these three time points. (Thus, there are total 3 $\times$ 3 = 9 models)
+In this part, the outcome variable is Glasgow outcome scale (GOS). GOS is an ordinal variable that ranges from 1 to 5 and we used three different schemes to re-categorize the original GOS scale into a new dichotomous variable. Moreover, since the GOS was measured at month 1, 3 and 6 (after discharge ?), we conducted multiple logistical regression analyses on each of the newly created GOS variables for each of these three time points. (Thus, there are total 3 $\times$ 3 = 9 models)
 
-In each of the multiple logistical regression models, we included demographic and injury severity characteristics such as Age, Gender, AIS, Eye-reactivity, CT score as well as the average of those physiological information during the hospital stay such as ICP, MAP, GCS, etc. as the independent variables. Due to missing values in observations, there are total 206, 200 and 190 effective number of patients for each of the three time points respectively. The exponential value of the resulting regression coefficient is the odds ratio of the two outcomes, e.g. death vs others, when the predictor increases one unit (if it is continuous variable) or when it is compared to the reference group (if categorical).
+In each of the multiple logistical regression models, we included demographic and injury severity characteristics such as Age, Gender, AIS, Eye-reactivity, CT score as well as the average of those physiological information during the hospital stay such as ICP, MAP, GCS, etc. as the independent variables. Due to missing values in observations, there are total 206, 200 and 190 effective number of patients for each of the three time points respectively. The exponential value of the resulting regression coefficient is interpreted as the odds ratio of the two outcomes, e.g. death vs others, when the predictor increases one unit (if it is continuous variable) or when it is compared to the reference group (if categorical).
 
 For coding scheme one, we can see that at all three time points, Age, average of ICP, MAP and GCS sum are all significantly related with the outcome at 0.05 significance level. While Age and average ICP are positively correlated with the outcome, the relationship between average of MAP and GCS sum and the outcome are negative. In terms of interpretation, under our first coding scheme, i.e. death coded as 1 and others coded as 0, taking Age in the first model as an example, for a patient at the first month of discharge from the hospital the odds for him/her to be dead is 1.07 (i.e. $\exp$(0.0701)) times of the odds for another who is one year younger. Similar interpretation applies to other predictors if they are continuous; if the predictor is categorical, the comparison is between the specific category of interest and the reference level. Note that one additional significant variable in Month 3 is AIS (\emph{p-value} = 0.0453).
 
@@ -344,9 +344,9 @@ In coding scheme three, there is only one covariate, average GCS sum, that is si
 \newpage
 \section{LMM for ICP}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-In this part the outcome of interest is intracranial pressure (ICP), which is an important physiological indicator that we closely monitor to keep an eye on patients' brain health condition. ICP is monitored over time for each patients and repeated measurements were recored. The ICP values within one patient are supposed to be more similar than those measurements from different patients. To account for the correlation of the ICP measurements with the same patient, we use linear mixed model (LMM) in modeling ICP with regard to other covariates. In LMM we introduce a hypothetic unobserved hidden variable, i.e. random effect, observations from the same patient share the same random effect while observations for different patients have different values for random effect. We fit the LMMs using \verb'R' \cite{team2012r} function \verb'lmer{lme4}'\cite{bates2012lme4}.
+In this part the outcome of interest is intracranial pressure (ICP), which is an important physiological indicator that we closely monitor to keep an eye on patients' brain health condition. ICP is monitored over time for each patient and repeated measurements were recorded. The ICP measurements within one patient are supposed to be more similar than those from different patients. To account for the correlation of the ICP measurements with the same patient, we use linear mixed model (LMM) in modeling ICP with regard to other covariates. In LMM we introduce a hypothetic unobserved hidden variable, i.e. random effect, observations from the same patient share the same random effect while observations for different patients have different values for random effect. We fit the LMMs using \verb'R' \cite{team2012r} function \verb'lmer{lme4}'\cite{bates2012lme4}.
 
-In the first model, results shown in Table \ref{tab: lmm1}, Age, CT code, GCS.sum and MAP are significantly related with ICP value. Take MAP as an example, the coefficient of MAP means ICP value will increase by 0.06 unit corresponding to one unit increase in MAP. In the second model we add an additional variable PbtO2 into the first model, due to the missing values the effective number of observations decreases dramatically and there is only one variable, SjvO2, that is significantly related ICP. Results can be found in Table \ref{tab: lmm2}. Similarly, based on model one we investigated other potential covariates to ICP, i.e. CBF and CMRO2 in model 3 and ratio of Lactate and Pyruvate respectively and the results are listed in Table \ref{tab: lmm3} and Table \ref{tab: lmm4}. 
+In the first model, results shown in Table \ref{tab: lmm1}, Age, CT code, GCS.sum and MAP are significantly related with ICP value. Take MAP as an example, the coefficient of MAP means ICP value will increase by 0.06 unit corresponding to one unit increase in MAP. In the second model we add an additional variable PbtO2 into the first model, due to the missing values the effective number of observations decreases dramatically and there is only one variable, SjvO2, that is significantly related with ICP. Results can be found in Table \ref{tab: lmm2}. Similarly, we investigated other potential covariates to ICP, i.e. CBF and CMRO2 in model 3 and ratio of Lactate and Pyruvate respectively and the results are listed in Table \ref{tab: lmm3} and Table \ref{tab: lmm4}. 
 
 % latex table generated in R 3.1.1 by xtable 1.7-3 package
 % Wed Sep 10 16:47:27 2014
@@ -403,34 +403,30 @@ In the first model, results shown in Table \ref{tab: lmm1}, Age, CT code, GCS.su
 \end{table}
 
 
-% latex table generated in R 3.1.1 by xtable 1.7-3 package
-% Wed Sep 10 16:55:36 2014
+% latex table generated in R 3.1.0 by xtable 1.7-3 package
+% Tue May 27 11:12:43 2014
 \begin{table}[H]
 \centering
+\caption{Number of obs: 79, groups: IDNo, 58}
 \begin{tabular}{rrrrrr}
   \hline
  & Estimate & Std. Error & df & t value & Pr($>$$|$t$|$) \\ 
   \hline
-(Intercept) & 3.62 & 16.98 & 41.97 & 0.21 & 0.83 \\ 
-  HAI & 0.06 & 0.03 & 38.73 & 1.82 & 0.08 \\ 
-  Age & -0.15 & 0.08 & 30.57 & -1.80 & 0.08 \\ 
-  Gendermale & 4.31 & 5.10 & 34.57 & 0.84 & 0.40 \\ 
-  onereactive & -8.79 & 6.77 & 35.40 & -1.30 & 0.20 \\ 
-  bothreactive & -4.48 & 2.96 & 29.28 & -1.51 & 0.14 \\ 
-  CTD34 & -0.50 & 5.50 & 28.73 & -0.09 & 0.93 \\ 
-  CTM12 & 1.20 & 4.84 & 29.18 & 0.25 & 0.81 \\ 
-  GCS.sum & -0.97 & 0.65 & 37.87 & -1.51 & 0.14 \\ 
-  MAP & 0.08 & 0.11 & 36.96 & 0.74 & 0.46 \\ 
-  SjvO2 & -0.04 & 0.18 & 42.00 & -0.23 & 0.82 \\ 
-  PCO2 & 0.37 & 0.16 & 38.92 & 2.31 & {\bf 0.03} \\ 
-  CBF & 0.01 & 0.09 & 37.85 & 0.10 & 0.92 \\ 
-  CMRO2 & -1.39 & 1.93 & 41.00 & -0.72 & 0.48 \\ 
+(Intercept) & 24.18 & 12.85 & 69.00 & 1.88 & 0.06 \\ 
+  HAI & 0.02 & 0.03 & 68.84 & 0.76 & 0.45 \\ 
+  Age & -0.16 & 0.07 & 54.42 & -2.23 & {\bf 0.03} \\ 
+  Gendermale & 4.62 & 3.94 & 53.41 & 1.17 & 0.25 \\ 
+  GCS.sum & -1.35 & 0.58 & 61.83 & -2.31 & {\bf 0.02} \\ 
+  MAP & 0.02 & 0.08 & 69.00 & 0.26 & 0.79 \\ 
+  SjvO2 & -0.08 & 0.14 & 66.97 & -0.61 & 0.54 \\ 
+  PCO2 & 0.15 & 0.15 & 68.33 & 1.04 & 0.30 \\ 
+  CBF & 0.02 & 0.08 & 66.61 & 0.31 & 0.76 \\ 
+  CMRO2 & -3.41 & 1.69 & 69.00 & -2.02 & {\bf 0.05} \\ 
    \hline
 \end{tabular}
-\caption{Number of obs: 56, groups: IDNo, 42}
+\caption{Number of obs: 79, groups: IDNo, 58}
 \label{tab: lmm3}
 \end{table}
-
 
 
 % latex table generated in R 3.1.1 by xtable 1.7-3 package

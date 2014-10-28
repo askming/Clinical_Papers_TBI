@@ -127,6 +127,10 @@ table(demographic$Mon6GOS)
 # 303  49 258 170 167   8 173 
 
 
+### 8. moto GCS
+table(demographic$ERGCSmotor)
+
+
 
 
 
