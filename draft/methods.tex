@@ -497,12 +497,42 @@ Age & -0.01 & 0.01 & $0.2155$ & (Intercept) & 19.46 & 2.52 & ${\bf <0.0001}$ \\
   $\log(\xi_4)$ & -4.80 & 0.65 &  & $\log(\sigma)$ & 2.05 & 0.02 &  \\ 
   $\log(\xi_5)$ & -5.02 & 0.67 &  &  &  &  &  \\ 
   $\log(\xi_6)$ & -4.71 & 0.68 &  & $D_{11}$ & 38.11 & 11.29 &  \\ 
-  $\log(\xi_7)$ & -4.13 & 0.72 &  &  &  &  &  \\ 
+  $\log(\xi_7)$ & -4.13 & 0.72&  &  &  &  &  \\ 
    \hline
 \end{tabular}
 \caption{Parameter estimates, standard errors and $p$-values under the joint modeling analysis. $D_{ij}$ denote the $ij$-element of the covariance matrix for the random effects.} 
 \label{tab: jm}
 \end{table}
+
+% latex table generated in R 3.1.1 by xtable 1.7-3 package
+% Wed Nov 26 15:48:09 2014
+\begin{table}[]
+\centering
+\begin{tabular}{lrrrlrrr}
+  \hline
+  & \multicolumn{3}{c}{Event Process} & & \multicolumn{3}{c}{Longitudinal Process}\\
+  & Value & Std.Err & $p$-value &   & Value & Std.Err & $p$-value \\ 
+  \hline
+Age & -0.01 & 0.01 & $0.2639$ & (Intercept) & 20.38 & 2.09 & $<0.0001$ \\ 
+  Gendermale & -0.04 & 0.31 & $0.9053$ & Age & -0.16 & 0.03 & $<0.0001$ \\ 
+  eyereactivity1 & -0.50 & 0.45 & $0.2736$ & Gendermale & 3.45 & 1.51 & $0.0224$ \\ 
+  eyereactivity2 & -0.00 & 0.24 & $0.9858$ & eyereactivity1 & 2.82 & 1.43 & $0.0485$ \\ 
+  newCTD2 & -0.64 & 0.33 & $0.0534$ & eyereactivity2 & -0.78 & 0.84 & $0.3545$ \\ 
+  newCTM & -0.91 & 0.27 & $0.0007$ & newCTD2 & 4.42 & 1.23 & $0.0003$ \\ 
+  AIS & -0.01 & 0.02 & $0.7341$ & newCTM & 4.03 & 1.03 & $0.0001$ \\ 
+  Assoct & -0.02 & 0.02 & $0.4681$ & HAI & 0.00 & 0.00 & $0.1592$ \\ 
+  $\log(\xi_1)$ & -7.25 & 1.00 &  & GCS.sum & -0.32 & 0.11 & $0.0052$ \\ 
+  $\log(\xi_2)$ & -5.49 & 0.93 &  & $\log(\sigma)$ & 2.05 & 0.02 &  \\ 
+  $\log(\xi_3)$ & -5.34 & 0.93 &  &  &  &  &  \\ 
+  $\log(\xi_4)$ & -4.67 & 0.95 &  & $D_{11}$ & 37.80 & 11.19 &  \\ 
+  $\log(\xi_5)$ & -4.90 & 0.97 &  &  &  &  &  \\ 
+  $\log(\xi_6)$ & -4.60 & 0.96 &  &  &  &  &  \\ 
+  $\log(\xi_7)$ & -4.04 & 0.99 &  &  &  &  &  \\ 
+   \hline
+\end{tabular}
+\caption{Parameter estimates, standard errors and $p$-values under the joint modeling analysis. $D_{ij}$ denote the $ij$-element of the covariance matrix for the random effects.} 
+\end{table}
+
 
 \bibliographystyle{plain}%%%%%%%%%%%%%%%%%%%%
 \addcontentsline{toc}{section}{References}

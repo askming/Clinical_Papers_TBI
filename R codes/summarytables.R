@@ -39,20 +39,33 @@ length(unique(sub_vital$IDNo))
 #################################################
 #################################################
 
-c(mean(vital_signs$ICP, na.rm=T), sd(vital_signs$ICP, na.rm=T))
+c(mean(sub_vital$ICP, na.rm=T), sd(sub_vital$ICP, na.rm=T))
 
-c(mean(vital_signs$MAP, na.rm=T), sd(vital_signs$MAP, na.rm=T))
+c(mean(sub_vital$MAP, na.rm=T), sd(sub_vital$MAP, na.rm=T))
 
-c(mean(vital_signs$CPP, na.rm=T), sd(vital_signs$CPP, na.rm=T))
+c(mean(sub_vital$CPP, na.rm=T), sd(sub_vital$CPP, na.rm=T))
 
-c(mean(vital_signs$SjvO2, na.rm=T), sd(vital_signs$SjvO2, na.rm=T))
+c(mean(sub_vital$SjvO2, na.rm=T), sd(sub_vital$SjvO2, na.rm=T))
 
-c(mean(vital_signs$SaO2, na.rm=T), sd(vital_signs$SaO2, na.rm=T))
+c(mean(sub_vital$SaO2, na.rm=T), sd(sub_vital$SaO2, na.rm=T))
 
-c(mean(vital_signs$PCO2, na.rm=T), sd(vital_signs$PCO2, na.rm=T))
+c(mean(sub_vital$PCO2, na.rm=T), sd(sub_vital$PCO2, na.rm=T))
 
-c(mean(vital_signs$PbtO2, na.rm=T), sd(vital_signs$PbtO2, na.rm=T))
+c(mean(sub_vital$PbtO2, na.rm=T), sd(sub_vital$PbtO2, na.rm=T))
 
+no_patient = function(var){
+  sub_vital2 = subset(sub_vital, !is.na(get(var)))
+  IDS = unique(sub_vital2$ID)
+  IDS
+}
+
+no_patient('ICP')
+no_patient('MAP')
+no_patient('CPP')
+no_patient('SjvO2')
+no_patient('SaO2')
+no_patient('PCO2')
+no_patient('PbtO2')
 
 #################################################
 #################################################
@@ -80,15 +93,15 @@ table(demographic$Race.text)
 levels(demographic$Mechanism)
 table(demographic$Mechanism)
                                     # assault            automobile               bicycle 
-                   # 16                   215                   548                    10 
+                   # 16                   98                   191                    5 
                   # bus             explosion             fall/jump         gunshot wound 
-                    # 1                     1                   150                    83 
+                    # 0                     1                   41                    57 
 # hit by falling object   industrial accident                 moped            motorcycle 
-                    # 8                     6                     1                    92 
+                    # 2                     1                     1                    17 
       # offroad vehicle                 other  recreational vehicle                sports 
-                    # 7                     3                     1                     4 
+                    # 0                     1                     0                     2 
                 # train                 truck               unknown 
-                    # 6                    27                    60 
+                    # 2                    1                    18 
 
 
 ### 5. Pupils
@@ -130,9 +143,22 @@ table(demographic$Mon6GOS)
 ### 8. moto GCS
 table(demographic$ERGCSmotor)
 
+### 9. AIS
+round(c(mean(demographic$AIS), sd(demographic$AIS)), 1)
 
+### 10. ICULOS
+round(c(mean(demographic$ICULOS, na.rm=TRUE), sd(demographic$ICULOS, na.rm=TRUE)), 1)
 
+### 11. plotting
+sub_demo = subset(demographic, select=c('CT.Code', 'ICULOS'), CT.Code %in% c('D1', 'D2', 'D3', 'D4', 'M1', 'M2') & !is.na(ICULOS))
+sub_demo$CT = numeric(dim(sub_demo)[1])
+for(i in seq_along(sub_demo$CT.Code)){
+  if (sub_demo$CT.Code[i] %in% c('D1', 'D2')) sub_demo$CT[i] = 'D12' 
+  if (sub_demo$CT.Code[i] %in% c('D3', 'D4')) sub_demo$CT[i] = 'D34' 
+  if (sub_demo$CT.Code[i] %in% c('M1', 'M2')) sub_demo$CT[i] = 'M12' 
+}
 
-
+ICULOS_mean = tapply(sub_demo$ICULOS, sub_demo$CT, mean)
+barplot(ICULOS_mean, xlab='CT classification', ylab='Mean ICU LOS', ylim=c(0, 25))
 
    
