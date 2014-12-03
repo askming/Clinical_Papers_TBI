@@ -100,9 +100,9 @@ for (i in 1:dim(data_id)[1]){
 	else if (data_id$ERLpupilreactivity[i]=='+' & data_id$ERRpupilreactivity[i]=='+') data_id$eyereactivity[i]= 2 #best
 	else data_id$eyereactivity[i]= 1 #medium
 
-	if (data_id$CT.Code[i] %in% c("D1","D2")) data_id$newCT[i] = 'D1'
-	else if (data_id$CT.Code[i] %in% c("D3","D4")) data_id$newCT[i] = 'D2'
-	else if (data_id$CT.Code[i] %in% c("M1","M2")) data_id$newCT[i] = 'M'
+	if (data_id$CT.Code[i] %in% c("D1","D2")) data_id$newCT[i] = 'D12'
+	else if (data_id$CT.Code[i] %in% c("D3","D4")) data_id$newCT[i] = 'D34'
+	else if (data_id$CT.Code[i] %in% c("M1","M2")) data_id$newCT[i] = 'M12'
 	
 }
 data_id$eyereactivity = as.factor(data_id$eyereactivity) 
@@ -124,5 +124,11 @@ summary(JM_fit)
 xtable(JM_fit)
 
 
+#### plotting
+xtabs = xtabs(~event+newCT, data=data_id)
 
+barplot(xtabs,  ylim=c(0,100), ylab='count')
+legend("topleft", legend=c('deaths in ICU (censored)', 'ICU discharge (events)'), fill=c('black','gray'))
 
+# fitlm = lm(ICULOS ~ Age + Gender + newCT + eyereactivity + AIS, data=data_id)
+# summary(fitlm)

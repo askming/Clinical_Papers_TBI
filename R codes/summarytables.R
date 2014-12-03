@@ -148,6 +148,9 @@ round(c(mean(demographic$AIS), sd(demographic$AIS)), 1)
 
 ### 10. ICULOS
 round(c(mean(demographic$ICULOS, na.rm=TRUE), sd(demographic$ICULOS, na.rm=TRUE)), 1)
+length(unique(demographic[!is.na(demographic$ICULOS),]$ID))
+
+
 
 ### 11. plotting
 sub_demo = subset(demographic, select=c('CT.Code', 'ICULOS'), CT.Code %in% c('D1', 'D2', 'D3', 'D4', 'M1', 'M2') & !is.na(ICULOS))
