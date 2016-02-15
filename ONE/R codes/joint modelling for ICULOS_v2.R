@@ -1,10 +1,10 @@
 ############################################################
 ##### this part is  added for ICULOS regression analysis####
-#################### Joint modelling #######################
+#################### Joint modeling #######################
 ############################################################
 
 rm(list=ls())
-setwd("/Users/askming/Dropbox/RA Works/Self/6. Real Data/Claudia TBI Data")
+setwd("/Users/askming/Dropbox/Research Works/Self/6. Real Data/Claudia TBI Data")
 
 ############################################################
 ################  data processing   ########################
@@ -17,8 +17,10 @@ cbf_cmro2 <- read.csv("cbf_cmro2.csv",header=T)
 gluc_lact <- read.csv("gluc_lact.csv", header=T)
 cma_md <- read.csv("cma_md.csv",header=T)
 
+summary(demog$ICULOS, na.rm=T)
+
 ### 1. create variable event for death indicator
-### here event is the ICU discharge and people who died in ICU is censored 
+### here event is the ICU discharge and people who died in ICU is censored
 LOS = subset(demog, select=c("IDNo", "ICULOS", "HospLOS"), !is.na(HospLOS) & !is.na(ICULOS))
 subLOS = subset(LOS, HospLOS <= round(ICULOS, 1)) # patients died in ICU
 
@@ -29,13 +31,14 @@ for (i in 1: dim(demog)[1]){
 }
 
 
+
 #### 2. merge CBF15 and AvCBF into cbf_mew ###
 cbf_cmro2$cbf_new <- cbf_cmro2$CBF15
 for (i in 1:dim(cbf_cmro2)[1]){
 	if (is.na(cbf_cmro2$cbf_new[i])) cbf_cmro2$cbf_new[i]<-cbf_cmro2$AvCBF[i]
 }
 
-#### 3. 
+#### 3.
 gluc_lact_join <- join(cma_md,gluc_lact,by="IDNo",type="full")
 for (i in 1:dim(gluc_lact_join)[1]){
 	if (!is.na(gluc_lact_join$Pyruvate[i]) & !is.na(gluc_lact_join$Lactate[i]) & is.na(gluc_lact_join$L.P.Ratio[i])){
@@ -52,10 +55,20 @@ sub_overall <- subset(overall, select=c("IDNo", "ICULOS","HospLOS", "event", "ER
 
 sub_overall$Gender <- factor(sub_overall$Gender)
 
+# K-M plot of ICULOS
+# surv_data = subset(sub_overall, select=c('ICULOS', 'event'), !is.na(event))
+# library(survival)
+# surv_data_type = with(surv_data, Surv(ICULOS, event==1))
+# fit = survfit(surv_data_type~1)
+# summary(fit)
+# plot(fit, main="Kaplan-Meier estimate of ICULOS with 95% confidence bounds", xlab="time/day", ylab="survival function", col="blue")
+
+
+
 
 ############################################################
-######  data for longitudinal model, data_logi   ###########
-############################################################ 
+######  data for longitudinal model, data_longi   ###########
+############################################################
 # ICULOS is of unit day
 # iculen = floor(tapply(sub_overall$ICULOS, sub_overall$IDNo, unique)*24)
 # icutime = numeric(0)
@@ -77,13 +90,13 @@ for (i in 1:dim(data_longi)[1]){
 	if (data_longi$CT.Code[i] %in% c("D1","D2")) data_longi$newCT[i] = 'D1'
 	else if (data_longi$CT.Code[i] %in% c("D3","D4")) data_longi$newCT[i] = 'D2'
 	else if (data_longi$CT.Code[i] %in% c("M1","M2")) data_longi$newCT[i] = 'M'
-	
+
 }
 
-data_longi$eyereactivity = as.factor(data_longi$eyereactivity) 
+data_longi$eyereactivity = as.factor(data_longi$eyereactivity)
 
 # # max.hai = tapply(sub_overall$HAI, sub_overall$IDNo, max)
-# # sum(max.hai > iculen) 
+# # sum(max.hai > iculen)
 # [1] 0
 
 
@@ -103,9 +116,9 @@ for (i in 1:dim(data_id)[1]){
 	if (data_id$CT.Code[i] %in% c("D1","D2")) data_id$newCT[i] = 'D12'
 	else if (data_id$CT.Code[i] %in% c("D3","D4")) data_id$newCT[i] = 'D34'
 	else if (data_id$CT.Code[i] %in% c("M1","M2")) data_id$newCT[i] = 'M12'
-	
+
 }
-data_id$eyereactivity = as.factor(data_id$eyereactivity) 
+data_id$eyereactivity = as.factor(data_id$eyereactivity)
 
 # two dataset should have the same patient group
 data_id = subset(data_id, subset=unique(data_id$IDNo)%in%unique(data_longi$IDNo))
@@ -114,7 +127,6 @@ data_id = subset(data_id, subset=unique(data_id$IDNo)%in%unique(data_longi$IDNo)
 ############################################################
 #######################  fit joint model   #################
 ############################################################
-
 library(JM)
 surv_fit = coxph(Surv(iculos_hour, event) ~ Age + Gender + eyereactivity + newCT + AIS, data=data_id, x=TRUE)
 lme_fit = lme(ICP ~   Age + Gender + eyereactivity + newCT + HAI + GCS.sum, random= ~ 1|IDNo, data=data_longi, na.action="na.omit")
